@@ -15,7 +15,7 @@ public class UserPopulator {
     ApplicationRunner populateUsers(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
             String password = passwordEncoder.encode("1234");
-            User user = new User(1, "Bernadette",password, Set.of("USER"));
+            User user = new User(0, "bernadette",password, Set.of("USER"));
             userRepository.save(user);
         };
     }

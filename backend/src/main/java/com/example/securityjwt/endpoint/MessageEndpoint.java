@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/messages")
 public class MessageEndpoint {
 
-    @GetMapping("unauthorized")
+    @GetMapping("/unauthorized")
     String unauthorized() {
         return "This will never be displayed due to lack of authorization";
     }
