@@ -19,6 +19,4 @@ public class LoginEndpoint {
     String jwt(Authentication authentication) {
         return jwtGenerator.generate(authentication);
     }
-
-
 }
