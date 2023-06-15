@@ -28,6 +28,7 @@ import org.springframework.security.config.annotation.web.configurers.oauth2.ser
 import org.springframework.security.config.Customizer;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
 
 import java.util.List;
@@ -39,10 +40,15 @@ import java.util.List;
 public class SecurityConfiguration {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable()
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/register").permitAll();
+                    auth.requestMatchers("/login").permitAll();
+                    auth.anyRequest().authenticated();
+                })
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults())
                 .build();
@@ -60,9 +66,9 @@ public class SecurityConfiguration {
     }
     @Bean
     UserDetailsService userDetailsService(UserRepository userRepository) {
-        return username -> userRepository.findByUsername(username)
+        return email -> userRepository.findByEmail(email)
                 .map(UserPrincipal::new)
-                .orElseThrow(()->new UsernameNotFoundException(username));
+                .orElseThrow(() -> new UsernameNotFoundException(email));
     }
 
     @Bean
