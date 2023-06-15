@@ -1,26 +1,30 @@
 package com.example.securityjwt.endpoint;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/messages")
 public class MessageEndpoint {
 
     @GetMapping("/unauthorized")
-    String unauthorized() {
-        return "This will never be displayed due to lack of authorization";
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String unauthorized() {
+        return "Hi from endpoint unauthorized";
     }
 
-    @GetMapping("authorized")
-    String authorized() {
-        return "Hello, this will be displayed due to austhorization";
+    @GetMapping("/authorized")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String authorized() {
+        return "You are authorized to be here";
     }
 
-    @GetMapping("authorized/customized")
+    @GetMapping("/authorized/customized")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     String customized(Authentication authentication) {
         return "Hello, " + authentication.getName();
     }
+
 }
