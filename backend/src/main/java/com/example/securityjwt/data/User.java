@@ -1,28 +1,48 @@
 package com.example.securityjwt.data;
 
 import jakarta.persistence.*;
+
 import java.util.Set;
 
 
-
 @Entity
-@Table(name="_user")
+@Table(name = "_user")
 public class User {
-
     @Id
     @GeneratedValue
     private long id;
-    private String username;
+    private String firstName;
+    @Column(unique = true)
+    private String email;
+
     private String password;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> authorities;
-
-    public User(long id, String username, String password, Set<String> authorities) {
+    public User(long id, String firstName,String email, String password, Set<String> authorities) {
         this.id = id;
-        this.username = username;
+        this.firstName = firstName;
+        this.email = email;
         this.password = password;
         this.authorities = authorities;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public User() {
     }
 
@@ -34,13 +54,6 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;
