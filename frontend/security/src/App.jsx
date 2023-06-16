@@ -10,8 +10,8 @@ import { handleLogout } from "./fetchmethods";
 
 function App() {
   const [message, setMessage] = useState();
-  const [loginStatus, setLoginStatus] = useState("");
-  console.log(loginStatus);
+  const [loginStatus, setLoginStatus] = useState();
+
   return (
     <>
       <h1>Spring Security JWT</h1>
@@ -19,6 +19,7 @@ function App() {
         name={"Unauthorized_Message"}
         onClick={() => handleUnauthorized(setMessage)}
       />
+
       <Button
         name={"Authorized_Message"}
         onClick={() => handleAuthorized(setMessage)}
@@ -29,7 +30,10 @@ function App() {
           onClick={() => handleLogout(setLoginStatus, setMessage)}
         />
       ) : (
-        <Button name={"Login"} onClick={() => handleLogin(setLoginStatus)} />
+        <Button
+          name={"Login"}
+          onClick={() => handleLogin(setLoginStatus, setMessage)}
+        />
       )}
 
       <Button
