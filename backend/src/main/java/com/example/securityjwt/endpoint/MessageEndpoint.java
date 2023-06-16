@@ -1,5 +1,6 @@
 package com.example.securityjwt.endpoint;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
