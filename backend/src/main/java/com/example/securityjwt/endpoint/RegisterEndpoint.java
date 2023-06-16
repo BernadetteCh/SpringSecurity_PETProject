@@ -1,5 +1,4 @@
 package com.example.securityjwt.endpoint;
-
 import com.example.securityjwt.endpoint.dto.RegistrationDTO;
 import com.example.securityjwt.logic.RegisterService;
 import org.springframework.http.HttpStatus;
