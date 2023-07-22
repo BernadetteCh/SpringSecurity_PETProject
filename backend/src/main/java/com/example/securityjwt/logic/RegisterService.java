@@ -20,8 +20,6 @@ public class RegisterService {
 
 
     public void register(RegistrationDTO registrationDTO) {
-        System.out.println(registrationDTO.password()+"!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(registrationDTO.firstName() + "!!!!!!!!!!!");
         String encodedPassword = passwordEncoder.encode(registrationDTO.password());
         User user = new User();
         user.setFirstName(registrationDTO.firstName());
